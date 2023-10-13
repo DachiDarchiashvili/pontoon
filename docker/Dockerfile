@@ -46,10 +46,12 @@ ENV TERSER_BINARY /app/node_modules/.bin/terser
 COPY --chown=pontoon:pontoon pontoon/package.json .
 RUN npm install
 
-COPY --chown=pontoon:pontoon ./docker/config/server.env .env
+# Remove env copy because we will pass it using env variables
+#COPY --chown=pontoon:pontoon ./docker/config/server.env .env
 COPY --chown=pontoon:pontoon . /app/
 
-RUN python manage.py collectstatic
+# Will run inside server_run.sh
+#RUN python manage.py collectstatic
 
 STOPSIGNAL SIGINT
 CMD ["/app/docker/server_run.sh"]
