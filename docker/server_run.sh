@@ -16,4 +16,6 @@ uwsgi --chdir=/app \
   -b 100000 \
   --http-socket 0.0.0.0:8000 \
   --wsgi-file pontoon/wsgi.py \
+  --thunder-lock \
+  --log-master \
   --module pontoon.wsgi:application
