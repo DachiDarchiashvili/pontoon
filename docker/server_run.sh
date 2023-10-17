@@ -9,4 +9,11 @@ echo ">>> Setting up the db for Django"
 python manage.py migrate
 
 echo ">>> Starting local server"
-exec python manage.py runserver 0.0.0.0:8000
+#exec python manage.py runserver 0.0.0.0:8000
+uwsgi --chdir=/app \
+  --master \
+  --die-on-term \
+  -b 100000 \
+  --http-socket 0.0.0.0:8000 \
+  --wsgi-file pontoon/wsgi.py \
+  --module pontoon.wsgi:application
